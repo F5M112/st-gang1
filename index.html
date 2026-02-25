@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gang System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container" style="display: none;">
+        <!-- Gang Menu -->
+        <div id="gangMenu" class="menu" style="display: none;">
+            <div class="terminal-header">
+                <span class="terminal-title">root@gang-system:~#</span>
+                <button class="close-btn" onclick="closeMenu()">X</button>
+            </div>
+            
+            <div class="menu-content">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('overview')">OVERVIEW</button>
+                    <button class="tab-btn" onclick="showTab('members')">MEMBERS</button>
+                    <button class="tab-btn" onclick="showTab('vault')">VAULT</button>
+                    <button class="tab-btn" onclick="showTab('territories')">TERRITORIES</button>
+                    <button class="tab-btn" onclick="showTab('wars')">WARS</button>
+                    <button class="tab-btn" onclick="showTab('upgrades')">UPGRADES</button>
+                    <button class="tab-btn" onclick="showTab('leaderboard')">LEADERBOARD</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div id="overview" class="tab-content active">
+                    <div class="info-panel">
+                        <h2 class="glitch" data-text="GANG INFORMATION">GANG INFORMATION</h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">>> Gang Name:</span>
+                                <span class="value" id="gangName">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">>> Leader:</span>
+                                <span class="value" id="gangLeader">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">>> Level:</span>
+                                <span class="value" id="gangLevel">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">>> Reputation:</span>
+                                <span class="value" id="gangReputation">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">>> Members:</span>
+                                <span class="value" id="gangMemberCount">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">>> Kills:</span>
+                                <span class="value" id="gangKills">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">>> Deaths:</span>
+                                <span class="value" id="gangDeaths">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">>> Balance:</span>
+                                <span class="value" id="gangBalance">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Members Tab -->
+                <div id="members" class="tab-content">
+                    <h2 class="glitch" data-text="GANG MEMBERS">GANG MEMBERS</h2>
+                    <div class="action-bar">
+                        <input type="number" id="invitePlayerId" placeholder="Player ID" class="input-field">
+                        <button class="btn-primary" onclick="inviteMember()">INVITE</button>
+                    </div>
+                    <div id="membersList" class="list-container">
+                        <!-- Members will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Vault Tab -->
+                <div id="vault" class="tab-content">
+                    <h2 class="glitch" data-text="GANG VAULT">GANG VAULT</h2>
+                    <div class="vault-panel">
+                        <div class="balance-display">
+                            <span>CURRENT BALANCE:</span>
+                            <span class="value" id="vaultBalance">$0</span>
+                        </div>
+                        <div class="vault-actions">
+                            <div class="input-group">
+                                <input type="number" id="depositAmount" placeholder="Amount" class="input-field">
+                                <button class="btn-success" onclick="deposit()">DEPOSIT</button>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" id="withdrawAmount" placeholder="Amount" class="input-field">
+                                <button class="btn-danger" onclick="withdraw()">WITHDRAW</button>
+                            </div>
+                        </div>
+                        <button class="btn-secondary" onclick="setVaultLocation()">SET VAULT LOCATION</button>
+                    </div>
+                </div>
+
+                <!-- Territories Tab -->
+                <div id="territories" class="tab-content">
+                    <h2 class="glitch" data-text="TERRITORIES">TERRITORIES</h2>
+                    <div id="territoriesList" class="list-container">
+                        <!-- Territories will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Wars Tab -->
+                <div id="wars" class="tab-content">
+                    <h2 class="glitch" data-text="GANG WARS">GANG WARS</h2>
+                    <div class="action-bar">
+                        <select id="warTargetGang" class="input-field">
+                            <option value="">Select Gang</option>
+                        </select>
+                        <button class="btn-danger" onclick="declareWar()">DECLARE WAR</button>
+                    </div>
+                    <div id="warsList" class="list-container">
+                        <!-- Wars will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Upgrades Tab -->
+                <div id="upgrades" class="tab-content">
+                    <h2 class="glitch" data-text="GANG UPGRADES">GANG UPGRADES</h2>
+                    <div id="upgradesList" class="upgrades-grid">
+                        <!-- Upgrades will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Leaderboard Tab -->
+                <div id="leaderboard" class="tab-content">
+                    <h2 class="glitch" data-text="LEADERBOARD">LEADERBOARD</h2>
+                    <div class="leaderboard-tabs">
+                        <button class="tab-btn active" onclick="showLeaderboard('money')">MONEY</button>
+                        <button class="tab-btn" onclick="showLeaderboard('territories')">TERRITORIES</button>
+                        <button class="tab-btn" onclick="showLeaderboard('kills')">KILLS</button>
+                        <button class="tab-btn" onclick="showLeaderboard('reputation')">REPUTATION</button>
+                    </div>
+                    <div id="leaderboardList" class="list-container">
+                        <!-- Leaderboard will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mafia Menu -->
+        <div id="mafiaMenu" class="menu" style="display: none;">
+            <div class="terminal-header">
+                <span class="terminal-title">root@mafia-control:~#</span>
+                <button class="close-btn" onclick="closeMenu()">X</button>
+            </div>
+            
+            <div class="menu-content">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showMafiaTab('dashboard')">DASHBOARD</button>
+                    <button class="tab-btn" onclick="showMafiaTab('gangs')">GANGS</button>
+                    <button class="tab-btn" onclick="showMafiaTab('wars')">WARS</button>
+                    <button class="tab-btn" onclick="showMafiaTab('territories')">TERRITORIES</button>
+                    <button class="tab-btn" onclick="showMafiaTab('control')">CONTROL</button>
+                </div>
+
+                <!-- Dashboard Tab -->
+                <div id="mafia-dashboard" class="tab-content active">
+                    <h2 class="glitch" data-text="MAFIA DASHBOARD">MAFIA DASHBOARD</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">TOTAL GANGS</div>
+                            <div class="stat-value" id="statTotalGangs">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">TOTAL MEMBERS</div>
+                            <div class="stat-value" id="statTotalMembers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">TOTAL MONEY</div>
+                            <div class="stat-value" id="statTotalMoney">$0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">ACTIVE WARS</div>
+                            <div class="stat-value" id="statActiveWars">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">CAPTURED TERRITORIES</div>
+                            <div class="stat-value" id="statTerritories">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gangs Tab -->
+                <div id="mafia-gangs" class="tab-content">
+                    <h2 class="glitch" data-text="MANAGE GANGS">MANAGE GANGS</h2>
+                    <div class="action-bar">
+                        <button class="btn-success" onclick="showCreateGangForm()">CREATE GANG</button>
+                    </div>
+                    <div id="mafiaGangsList" class="list-container">
+                        <!-- Gangs will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Wars Tab -->
+                <div id="mafia-wars" class="tab-content">
+                    <h2 class="glitch" data-text="ACTIVE WARS">ACTIVE WARS</h2>
+                    <div id="mafiaWarsList" class="list-container">
+                        <!-- Wars will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Territories Tab -->
+                <div id="mafia-territories" class="tab-content">
+                    <h2 class="glitch" data-text="TERRITORY CONTROL">TERRITORY CONTROL</h2>
+                    <div id="mafiaTerritoriesList" class="list-container">
+                        <!-- Territories will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Control Tab -->
+                <div id="mafia-control" class="tab-content">
+                    <h2 class="glitch" data-text="GLOBAL CONTROL">GLOBAL CONTROL</h2>
+                    <div class="control-panel">
+                        <div class="control-item">
+                            <span class="label">Global Tax Rate:</span>
+                            <input type="number" id="globalTax" class="input-field" placeholder="15">
+                            <button class="btn-primary" onclick="setGlobalTax()">SET TAX</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
